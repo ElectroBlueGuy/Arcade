@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1523472081 source:e:\programs c\arcadev2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
