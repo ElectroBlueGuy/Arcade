@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, crit, protection, rage, rattacco;
+int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, crit, protection, rage, rattacco, fireball, fchance;
 int enattacco;
-int attack[4], magic[3], heal[2], umagic[2], eattack[3], smagic[1];
+int attack[4], magic[3], heal[2], umagic[2], eattack[3], smagic[1], fdamage[2];
 int main()
 {
+    fdamage[0]=8;
+    fdamage[2]=9;
+    fdamage[1]=10;
     protection=0;
     rage=0;
     hp=30;
@@ -86,7 +89,7 @@ int main()
         if(scelta==2)
                 {
                     printf("\e[1;1H\e[2J");
-                    printf("Vita: %d | MP: %d | Vita dell'avversario: %d\n\nScegli che incantesimo usare usare:\n1)Heal: Ti curi aggiungendo qualcosa alla tua vita(costo: 2 MP)\n2)Concentration: Aggiunge qualche punto ai tuoi MP(Costo: 0 MP)\n3)Protection: per 3 turni il danno subito sara' minore(costo: 5 MP)\n4)Rage: Farai piu' danni per 3 turni(Costo: 10 MP)\n", hp, m, ehp);
+                    printf("Vita: %d | MP: %d | Vita dell'avversario: %d\n\nScegli che incantesimo usare:\n1)Heal: Ti curi aggiungendo qualcosa alla tua vita(costo: 2 MP)\n2)Concentration: Aggiunge qualche punto ai tuoi MP(Costo: 0 MP)\n3)Protection: per 3 turni il danno subito sara' minore(costo: 5 MP)\n4)Rage: Farai piu' danni per 3 turni(Costo: 10 MP)\n", hp, m, ehp);
                     scanf("%d",&scelta);
                     if(scelta==1)
                     {
@@ -142,7 +145,16 @@ int main()
 
 
                 }
-
+            srand(time(0));
+            fchance=(rand() % 9);
+            if(fchance>=8)
+            {
+                srand(time(0));
+                fireball=(rand() % 2);
+                hp=hp-fdamage[fireball];
+                printf("L'avversario ti colpisce con una palla di fuoco, togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",fdamage[fireball], hp, m, ehp);
+            }
+            else{
             srand(time(0));
             eattacco=( rand() % 3 );
             enattacco=eattack[eattacco];
@@ -154,6 +166,7 @@ int main()
 
             hp=hp-enattacco;
             printf("L'avversario ti colpisce togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",enattacco, hp, m, ehp);
+            }
             system ("pause");
             printf("\e[1;1H\e[2J");
             if((m < 0) || (hp <= 0))
