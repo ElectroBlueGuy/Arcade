@@ -15,9 +15,9 @@ void loader() {
 
 }
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, tut;
+lifesteal, fireball, meter,c=0, stun, tut, modifier, lastchance;
 int enattacco;
-int attack[4], magic[3], heal[2], umagic[2], eattack[3], smagic[1], fdamage[2];
+int attack[4] = {2,3,4,5,6}, magic[3]={4,5,6,7}, heal[2]={8,9,10}, umagic[2]={1,2,3}, eattack[3]={3,4,5,6}, smagic[1]={2,3}, fdamage[2]={8,9,10}, lastdamage[8]={0,0,0,1,2,3,0,0,0};
 int main()
 {
     printf("Vuoi vedere il tutorial?\n1=Si\n");
@@ -33,7 +33,9 @@ int main()
         pac();
         printf("Gli MP servono per usare gli incantesimi, se scendono sotto lo zero, hai perso\n");
         pac();
-        printf("premendo 2 apri il menu degli incantesimi\nVengono dati gli incantesimi, una descrizone, ed il costo\n");
+        printf("Premendo 2 apri il menu degli incantesimi\nVengono dati gli incantesimi, una descrizone, ed il costo\n");
+        pac();
+        printf("Piu vinci, Piu il nemico diventa forte!\n");
         pac();
         printf("Buona Fortuna!\n");
         pac();
@@ -44,37 +46,16 @@ int main()
         system("cls");
     }
 restart=1;
+
 while(restart=1){
 c++;
-fdamage[0]=8; ///incomincio a dichiarare tutti gli array e variabili
-fdamage[2]=9;
-fdamage[1]=10;
+meter=0;
+modifier=modifier+10;
 protection=0;
 rage=0;
 hp=30;
-ehp=45;
+ehp=10+modifier;
 r=clock();
-attack[0]=2;
-attack[1]=3;
-attack[2]=4;
-attack[3]=5;
-attack[4]=6;
-magic[0]=4;
-magic[1]=5;
-magic[2]=6;
-magic[3]=7;
-heal[0]=6;
-heal[1]=7;
-heal[2]=8;
-umagic[0]=1;
-umagic[1]=2;
-umagic[2]=3;
-eattack[0]=3;
-eattack[1]=4;
-eattack[2]=5;
-eattack[3]=6;
-smagic[0]=2;
-smagic[1]=3;
 m=10;
     while(ehp>0)///finchè la vita del nemico è superiore a 0 il gioco non si ferma
     {
@@ -196,7 +177,6 @@ if(meter==-666)
     hp=hp-enattacco;
     meter=0;
     printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce con un colpo caricato, togliendoti %d di vita!\n\nCOLPO CRITICO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, m, ehp);
-    system ("pause");
 }
 else
 {
@@ -257,6 +237,21 @@ pac();
     }
     }
 /// esce e vinci
+srand(time(0));
+lastchance=(rand() % 99);
+if(lastchance>=50)
+{
+    lastchance=(rand() % 8);
+    hp=hp-lastdamage[lastchance];
+    printf("Stai combattendo contro Nemico #%d\nCon le sue ultime energie il nemico ti attacca togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,lastdamage[lastchance], hp, m, ehp);
+    pac();
+    if((m < 0) || (hp <= 0)) /// controlla se ci sono endgame variabili
+    {
+    printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, m, ehp);
+     system("pause");
+     return 0;
+    }
+}
 printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, m, ehp);
 system ("pause");
 printf("Vuoi ricominciare?\n\n1=Si   0=No\n");
