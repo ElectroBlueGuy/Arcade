@@ -1,12 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
+void pac(){system ("pause");
+            system("cls");}
+void loader() {
+    int i;
+    char str[] = "                                        ";
+    for(i = 0 ; i <= 40 ; i++) {
+        printf("\r[%s]", str);
+        str[i] = '|';
+        Sleep(150);
+    }
+
+}
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun;
+lifesteal, fireball, meter,c=0, stun, tut;
 int enattacco;
 int attack[4], magic[3], heal[2], umagic[2], eattack[3], smagic[1], fdamage[2];
 int main()
 {
+    printf("Vuoi vedere il tutorial?\n1=Si\n");
+    scanf("%d", &tut);
+    if(tut==1)
+    {
+        system("cls");
+        printf("l'obbiettivo del gioco e' far arrivare la vita dell'avversario a 0\n");
+        pac();
+        printf("Puoi fare attaccandolo(1)\n");
+        pac();
+        printf("Se la tua vita scende a zero, hai perso\n");
+        pac();
+        printf("Gli MP servono per usare gli incantesimi, se scendono sotto lo zero, hai perso\n");
+        pac();
+        printf("premendo 2 apri il menu degli incantesimi\nVengono dati gli incantesimi, una descrizone, ed il costo\n");
+        pac();
+        printf("Buona Fortuna!\n");
+        pac();
+        printf("\n\n\n\n\n\nNe avrai bisogno...\n");
+        Sleep(50);
+        system("cls");
+        loader();
+        system("cls");
+    }
 restart=1;
 while(restart=1){
 c++;
@@ -81,8 +117,7 @@ m=10;
             }
         }
         }
-            system ("pause");
-            system("cls");
+            pac();
         }
 
     else
@@ -100,8 +135,7 @@ m=10;
             hp=hp+heal[cura];
             m=m-2;
             printf("Stai combattendo contro Nemico #%d\nUsando 2 di magia, aggiungi %d alla tua vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,heal[cura], hp, m, ehp);
-            system ("pause");
-            system("cls");
+            pac();
             }
         else
         {
@@ -112,8 +146,7 @@ m=10;
             magia=( rand() % 3 );
             m=m+magic[magia];
             printf("Stai combattendo contro Nemico #%d\nAggiungi %d alla tua magia!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,magic[magia], hp, m, ehp);
-            system ("pause");
-            system("cls");
+            pac();
             }
         else
         {
@@ -123,8 +156,7 @@ m=10;
             protection=protection+3;
             m=m-5;
             printf("Stai combattendo contro Nemico #%d\nUsi 5 MP Per ridurre il danno che subisci per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
-            system ("pause");
-            system("cls");
+            pac();
             }
         else
         {
@@ -134,8 +166,7 @@ m=10;
             rage=rage+3;
             m=m-10;
             printf("Stai combattendo contro Nemico #%d\nUsi 10 MP Per aumentare il danno che fai per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
-            system ("pause");
-            system("cls");
+            pac();
             }
             else{
             if(scelta==5) /// stun
@@ -144,8 +175,7 @@ m=10;
             stun=stun+2;
             m=m-7;
             printf("Stai combattendo contro Nemico #%d\nUsi 7 MP Per bloccare il nemico per 2 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
-            system ("pause");
-            system("cls");
+            pac();
         }
     }
         }
@@ -218,13 +248,12 @@ fchance=(rand() % 9);
 }
 }
     }
-system ("pause");
-system("cls");
+pac();
     if((m < 0) || (hp <= 0)) /// controlla se ci sono endgame variabili
     {
     printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, m, ehp);
-    system ("pause");
-    return 0;
+     system("pause");
+     return 0;
     }
     }
 /// esce e vinci
@@ -237,8 +266,3 @@ scanf("%d",&restart);
 return 0;
 
 }
-
-
-
-
-
