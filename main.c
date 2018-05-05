@@ -4,6 +4,11 @@
 #include <windows.h>
 void pac(){system ("pause");
             system("cls");}
+void err(){pac();
+printf("Il comando inserito non esiste!\n");
+pac();
+printf("Turno saltato!\n");
+pac();}
 void loader() {
     int i;
     char str[] = "                                        ";
@@ -15,7 +20,7 @@ void loader() {
 
 }
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, tut, modifier, lastchance;
+lifesteal, fireball, meter,c=0, stun, tut, modifier, lastchance, powervita, powermp, powerattacco, dvita=30, dmp=10;
 int enattacco;
 int attack[4] = {2,3,4,5,6}, magic[3]={4,5,6,7}, heal[2]={8,9,10}, umagic[2]={1,2,3}, eattack[3]={3,4,5,6}, smagic[1]={2,3}, fdamage[2]={8,9,10}, lastdamage[8]={0,0,0,1,2,3,0,0,0};
 int main()
@@ -49,20 +54,24 @@ restart=1;
 
 while(restart=1){
 c++;
+dvita=dvita+powervita;
+dmp=dmp+powermp;
 meter=0;
 modifier=modifier+10;
 protection=0;
 rage=0;
-hp=30;
+hp=dvita;
 ehp=10+modifier;
 r=clock();
-m=10;
+m=dmp+powermp;
     while(ehp>0)///finchè la vita del nemico è superiore a 0 il gioco non si ferma
     {
     system("cls");
     printf("Stai combattendo contro Nemico #%d\nSeleziona la tua prossima mossa!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n1: Attacca 2: Incantesimi\n\n",c, hp, m, ehp); /// schermata iniziale
     scanf("%d", &scelta);
-        if(scelta==1) /// se la prima scelta è di attaccare
+    switch(scelta)
+    {
+        case 1: /// se la prima scelta è di attaccare
         {
         system("cls");
         srand(time(0));
@@ -100,16 +109,16 @@ m=10;
         }
             pac();
         }
+        break;
 
-    else
-    {
-        if(scelta==2) ///se scegli incantesimi
+        case 2: ///se scegli incantesimi
         {
         system("cls");
-        printf("Vita: %d | MP: %d | Vita dell'avversario: %d\n\nScegli che incantesimo usare:\n1)Heal: Ti curi aggiungendo qualcosa alla tua vita(costo: 2 MP)\n2)Concentration: Aggiunge qualche punto ai tuoi MP(Costo: 0 MP)\n3)Protection: per 3 turni il danno subito sara' minore(costo: 5 MP)\n4)Rage: Farai piu' danni per 3 turni(Costo: 10 MP)\n5)Stun: Stordisci l'avversario impedendogli di attaccare per 2 turni(Costo: 7 MP)", hp, m, ehp);
+        printf("Vita: %d | MP: %d | Vita dell'avversario: %d\n\nScegli che incantesimo usare:\n1)Heal: Ti curi aggiungendo qualcosa alla tua vita(costo: 2 MP)\n2)Concentration: Aggiunge qualche punto ai tuoi MP(Costo: 0 MP)\n3)Protection: per 3 turni il danno subito sara' minore(costo: 5 MP)\n4)Rage: Farai piu' danni per 3 turni(Costo: 10 MP)\n5)Stun: Stordisci l'avversario impedendogli di attaccare per 2 turni(Costo: 7 MP)\n", hp, m, ehp);
         scanf("%d",&scelta); /// va nel menù incantesimi
-            if(scelta==1) /// heal
-            {
+        switch(scelta){
+    case 1:
+        {
             system("cls");
             srand(time(0));
             cura=( rand() % 2 );
@@ -117,53 +126,61 @@ m=10;
             m=m-2;
             printf("Stai combattendo contro Nemico #%d\nUsando 2 di magia, aggiungi %d alla tua vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,heal[cura], hp, m, ehp);
             pac();
-            }
-        else
+        }
+        break;
+    case 2:
+    {
+        system("cls");
+        srand(time(0));
+        magia=( rand() % 3 );
+        m=m+magic[magia];
+        printf("Stai combattendo contro Nemico #%d\nAggiungi %d alla tua magia!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,magic[magia], hp, m, ehp);
+        pac();
+    }
+    break;
+    case 3:
         {
-            if(scelta==2) /// concentration
-            {
-            system("cls");
-            srand(time(0));
-            magia=( rand() % 3 );
-            m=m+magic[magia];
-            printf("Stai combattendo contro Nemico #%d\nAggiungi %d alla tua magia!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,magic[magia], hp, m, ehp);
-            pac();
-            }
-        else
-        {
-            if(scelta==3) ///protection
-            {
             system("cls");
             protection=protection+3;
             m=m-5;
             printf("Stai combattendo contro Nemico #%d\nUsi 5 MP Per ridurre il danno che subisci per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
             pac();
-            }
-        else
+        }
+        break;
+    case 4:
         {
-            if(scelta==4) /// rage
-            {
             system("cls");
             rage=rage+3;
             m=m-10;
             printf("Stai combattendo contro Nemico #%d\nUsi 10 MP Per aumentare il danno che fai per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
             pac();
-            }
-            else{
-            if(scelta==5) /// stun
-            {
+        }
+        break;
+    case 5:
+        {
             system("cls");
             stun=stun+2;
             m=m-7;
             printf("Stai combattendo contro Nemico #%d\nUsi 7 MP Per bloccare il nemico per 2 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
             pac();
         }
+        break;
+    default:
+        {
+            err();
+        }
+        break;
+        }
+        }
+        break;
+    default:
+        {
+            err();
+        }
+        break;
+
     }
-        }
-        }
-}
-}
-} ///turno dell'avversario
+ ///turno dell'avversario
 if(stun>0)
 {
    stun=stun-1;
@@ -254,10 +271,56 @@ if(lastchance>=50)
 }
 printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, m, ehp);
 system ("pause");
-printf("Vuoi ricominciare?\n\n1=Si   0=No\n");
+printf("\nVuoi ricominciare?\n\n1=Si   0=No\n");
 scanf("%d",&restart);
+switch(restart){
+case 1:
+{
+    system("cls");
+    printf("Hai abbastanza esperienza per potenziarti!\n");
+    pac();
+    printf("Scegli tra questi 3 potenziamenti:\n\n1)Vita: Aumenta la tua vita iniziale (Vita +5)\n2)MP: Aumenta il tuo MP iniziale(MP +5)\n3)Attacco: Aumenta il tuo attacco iniziale (Attacco +1)\n");
+    scanf("%d", &scelta);
+    switch(scelta){
+case 1:
+    {
+        powervita=powervita+5;
+        system("cls");
+        printf("Hai potenziato la tua vita!\n");
+        pac();
+    }
+    break;
+case 2:
+    {
+        powermp=powermp+5;
+        system("cls");
+        printf("Hai potenziato i tuoi mp!\n");
+        pac();
+    }
+    break;
+case 3:
+    {
+        attack[0]=attack[0]+1;
+        attack[1]=attack[1]+1;
+        attack[2]=attack[2]+1;
+        attack[3]=attack[3]+1;
+        attack[4]=attack[4]+1;
+        system("cls");
+        printf("Hai potenziato il tuo attacco!\n");
+        pac();
+    }
+    break;
+default:
+    {
+        err();
+    }
+    break;
+    }
+}
 
+}
 }
 return 0;
 
 }
+
