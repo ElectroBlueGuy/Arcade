@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1525542185 source:e:\programs c\arcadev2\main.c
+1525553222 source:e:\programs c\arcadev2\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<windows.h>
+	<string.h>
 

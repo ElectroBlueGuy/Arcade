@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
-void pac(){system ("pause");
+#include <string.h>
+void pac(){system("pause");
             system("cls");}
 void err(){pac();
 printf("Il comando inserito non esiste!\n");
@@ -15,14 +16,16 @@ void loader() {
     for(i = 0 ; i <= 40 ; i++) {
         printf("\r[%s]", str);
         str[i] = '|';
-        Sleep(150);
+      Sleep(150);
     }
 
 }
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10;
+lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10, taunt;
 int enattacco;
-int attack[] = {2,3,4,5,6}, magic[]={4,5,6,7}, heal[]={8,9,10}, umagic[]={1,2,3}, eattack[]={3,4,5,6}, smagic[]={2,3}, fdamage[]={8,9,10}, lastdamage[]={0,0,0,1,2,3,0,0,0};
+int attack[] = {2,3,4,5,6}, magic[]={4,5,6,7}, heal[]={8,9,10}, umagic[]={1,2,3}, eattack[]={3,4,5,6},
+smagic[]={2,3}, fdamage[]={8,9,10}, lastdamage[]={0,0,0,1,2,3,0,0,0};
+char taunts[][20]={"Sono Invincibile!","Nervoso?","Sono Alessandro Il Grande!","Cabron!","Mi stai facendo arrabbiare, Pendejo!","La mia difesa e' inespugnabile!","Il mio stile e' impetuoso!"};
 int main()
 {
     printf("Benvenuto\n");
@@ -30,7 +33,7 @@ int main()
     printf("Fai la tua scelta:\n\n 1: Tutorial\n 2: Gioca\n 3: Esci\n");
     scanf("%d", &scelta);
     switch(scelta){
-case 1: //shy gay btw
+case 1:
     {
         system("cls");
         printf("l'obbiettivo del gioco e' far arrivare la vita dell'avversario a 0\n");
@@ -207,7 +210,10 @@ else
 if(meter>=30)
 {
     meter=-666;
-    printf("Stai combattendo contro Nemico #%d\nL'avversario sta caricando un colpo potente...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+    taunt=(rand() % 6);
+    printf("Stai combattendo contro Nemico #%d\nIl Nemico dice: '%s'\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,taunts[taunt], hp, m, ehp);
+    pac();
+    printf("Stai combattendo contro Nemico #%d\nIl Nemico sembra star caricando un colpo potente...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
 }
 else
 {
