@@ -20,14 +20,17 @@ void loader() {
 
 }
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, tut, modifier, lastchance, powervita, powermp, powerattacco, dvita=30, dmp=10;
+lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10;
 int enattacco;
 int attack[4] = {2,3,4,5,6}, magic[3]={4,5,6,7}, heal[2]={8,9,10}, umagic[2]={1,2,3}, eattack[3]={3,4,5,6}, smagic[1]={2,3}, fdamage[2]={8,9,10}, lastdamage[8]={0,0,0,1,2,3,0,0,0};
 int main()
 {
-    printf("Vuoi vedere il tutorial?\n1=Si\n");
-    scanf("%d", &tut);
-    if(tut==1)
+    printf("Benvenuto\n");
+    pac();
+    printf("Fai la tua scelta:\n\n 1: Tutorial\n 2: Gioca\n 3: Esci\n");
+    scanf("%d", &scelta);
+    switch(scelta){
+case 1:
     {
         system("cls");
         printf("l'obbiettivo del gioco e' far arrivare la vita dell'avversario a 0\n");
@@ -42,6 +45,8 @@ int main()
         pac();
         printf("Piu vinci, Piu il nemico diventa forte!\n");
         pac();
+        printf("Ma anche tu diventi piu' forte!\n");
+        pac();
         printf("Buona Fortuna!\n");
         pac();
         printf("\n\n\n\n\n\nNe avrai bisogno...\n");
@@ -50,6 +55,8 @@ int main()
         loader();
         system("cls");
     }
+case 2:
+    {
 restart=1;
 
 while(restart=1){
@@ -270,7 +277,7 @@ if(lastchance>=50)
     }
 }
 printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, m, ehp);
-system ("pause");
+pac();
 printf("\nVuoi ricominciare?\n\n1=Si   0=No\n");
 scanf("%d",&restart);
 switch(restart){
@@ -279,7 +286,7 @@ case 1:
     system("cls");
     printf("Hai abbastanza esperienza per potenziarti!\n");
     pac();
-    printf("Scegli tra questi 3 potenziamenti:\n\n1)Vita: Aumenta la tua vita iniziale (Vita +5)\n2)MP: Aumenta il tuo MP iniziale(MP +5)\n3)Attacco: Aumenta il tuo attacco iniziale (Attacco +1)\n");
+    printf("Scegli tra questi 3 potenziamenti:\n\n1)Vita: Aumenta la tua vita iniziale (Vita +5)\n2)MP: Aumenta il tuo MP iniziale(MP +10)\n3)Attacco: Aumenta il tuo attacco iniziale (Attacco +1)\n");
     scanf("%d", &scelta);
     switch(scelta){
 case 1:
@@ -320,6 +327,12 @@ default:
 
 }
 }
+    }
+default:
+    {
+        return 0;
+    }
+    }
 return 0;
 
 }
