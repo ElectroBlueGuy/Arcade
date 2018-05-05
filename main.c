@@ -22,7 +22,7 @@ void loader() {
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
 lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10;
 int enattacco;
-int attack[4] = {2,3,4,5,6}, magic[3]={4,5,6,7}, heal[2]={8,9,10}, umagic[2]={1,2,3}, eattack[3]={3,4,5,6}, smagic[1]={2,3}, fdamage[2]={8,9,10}, lastdamage[8]={0,0,0,1,2,3,0,0,0};
+int attack[] = {2,3,4,5,6}, magic[]={4,5,6,7}, heal[]={8,9,10}, umagic[]={1,2,3}, eattack[]={3,4,5,6}, smagic[]={2,3}, fdamage[]={8,9,10}, lastdamage[]={0,0,0,1,2,3,0,0,0};
 int main()
 {
     printf("Benvenuto\n");
@@ -30,7 +30,7 @@ int main()
     printf("Fai la tua scelta:\n\n 1: Tutorial\n 2: Gioca\n 3: Esci\n");
     scanf("%d", &scelta);
     switch(scelta){
-case 1:
+case 1: //shy gay btw
     {
         system("cls");
         printf("l'obbiettivo del gioco e' far arrivare la vita dell'avversario a 0\n");
