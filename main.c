@@ -3,7 +3,9 @@
 #include <time.h>
 #include <windows.h>
 #include <string.h>
-void pac(){system("pause");
+FILE *fp;
+void pac(){Sleep(1000);
+    system("pause");
             system("cls");}
 void err(){pac();
 printf("Il comando inserito non esiste!\n");
@@ -21,14 +23,23 @@ void loader() {
 
 }
 int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10, taunt;
+lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10, taunt, score, chars, count, space;
 int enattacco;
 int attack[] = {2,3,4,5,6}, magic[]={4,5,6,7}, heal[]={8,9,10}, umagic[]={1,2,3}, eattack[]={3,4,5,6},
 smagic[]={2,3}, fdamage[]={8,9,10}, lastdamage[]={0,0,0,1,2,3,0,0,0};
-char taunts[][20]={"Sono Invincibile!","Nervoso?","Sono Alessandro Il Grande!","Cabron!","Mi stai facendo arrabbiare, Pendejo!","La mia difesa e' inespugnabile!","Il mio stile e' impetuoso!"};
+char name[1000], taunts[][50]={"Sono Invincibile!","Nervoso?","Sono Alessandro Il Grande!","Cabron!","Mi stai facendo arrabbiare!","La mia difesa e' inespugnabile!","Il mio stile e' impetuoso!"};
 int main()
 {
-    printf("Benvenuto\n");
+    printf("Inserisci il tuo nome(senza spazi): ");
+    scanf("%s", &name);
+    while(name[count]!='\0')
+    {
+        count++;
+        chars++;
+    }
+    space=12-chars;
+    system("cls");
+    printf("Benvenuto, %s\n", name);
     pac();
     printf("Fai la tua scelta:\n\n 1: Tutorial\n 2: Gioca\n 3: Esci\n");
     scanf("%d", &scelta);
@@ -191,6 +202,8 @@ m=dmp+powermp;
 
     }
  ///turno dell'avversario
+if(ehp>0)
+{
 if(stun>0)
 {
    stun=stun-1;
@@ -211,7 +224,7 @@ if(meter>=30)
 {
     meter=-666;
     taunt=(rand() % 6);
-    printf("Stai combattendo contro Nemico #%d\nIl Nemico dice: '%s'\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,taunts[taunt], hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nIl Nemico dice: %s\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,taunts[taunt], hp, m, ehp);
     pac();
     printf("Stai combattendo contro Nemico #%d\nIl Nemico sembra star caricando un colpo potente...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
 }
@@ -258,10 +271,30 @@ fchance=(rand() % 9);
 }
 }
     }
-pac();
+    pac();
+}
+
     if((m < 0) || (hp <= 0)) /// controlla se ci sono endgame variabili
     {
+    printf("Stai combattendo contro Nemico #%d\nCrolli a terra, senza energie...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+    pac();
     printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, m, ehp);
+    pac();
+    printf("Vuoi salvare il tuo punteggio?\n1=Si\n");
+    scanf("%d", &scelta);
+if(scelta=1)
+    {
+    fp = fopen("score.txt", "a+");
+    score=c-1;
+    fprintf(fp, "%s", name);
+    for(;space!=0;space--)
+    {
+      fprintf(fp, "%s", " ");
+    }
+    fprintf(fp, "%s %s %s %d", "|", " ", " ", score);
+    fprintf(fp, "%s", "\n");
+    fclose(fp);
+    }
      system("pause");
      return 0;
     }
@@ -277,11 +310,30 @@ if(lastchance>=50)
     pac();
     if((m < 0) || (hp <= 0)) /// controlla se ci sono endgame variabili
     {
+     printf("Stai combattendo contro Nemico #%d\nCrolli a terra, senza energie...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+    pac();
     printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, m, ehp);
+    pac();
+    printf("Vuoi salvare il tuo punteggio?\n1=Si\n");
+    scanf("%d", &scelta);
+    if(scelta=1)
+    {
+    fp = fopen("score.txt", "a+");
+    score=c-1;
+    fprintf(fp, "%s", name);
+    for(;space!=0;space--)
+    {
+      fprintf(fp, "%s", " ");
+    }
+    fprintf(fp, "%s %s %s %d", "|", " ", " ", score);
+    fprintf(fp, "%s", "\n");
+    fclose(fp);
+    }
      system("pause");
      return 0;
     }
 }
+printf("Stai combattendo contro Nemico #%d\nIl nemico crolla a terra, sconfitto...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
 printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, m, ehp);
 pac();
 printf("\nVuoi ricominciare?\n\n1=Si   0=No\n");
