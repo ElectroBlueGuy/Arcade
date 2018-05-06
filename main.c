@@ -31,7 +31,7 @@ char name[1000], taunts[][50]={"Sono Invincibile!","Nervoso?","Sono Alessandro I
 int main()
 {
     printf("Inserisci il tuo nome(senza spazi): ");
-    scanf("%s", &name);
+    scanf("%s", name);
     while(name[count]!='\0')
     {
         count++;
@@ -73,7 +73,7 @@ case 2:
     {
 restart=1;
 
-while(restart=1){
+while(restart==1){
 c++;
 dvita=dvita+powervita;
 dmp=dmp+powermp;
@@ -282,7 +282,7 @@ fchance=(rand() % 9);
     pac();
     printf("Vuoi salvare il tuo punteggio?\n1=Si\n");
     scanf("%d", &scelta);
-if(scelta=1)
+if(scelta==1)
     {
     fp = fopen("score.txt", "a+");
     score=c-1;
@@ -316,7 +316,7 @@ if(lastchance>=50)
     pac();
     printf("Vuoi salvare il tuo punteggio?\n1=Si\n");
     scanf("%d", &scelta);
-    if(scelta=1)
+    if(scelta==1)
     {
     fp = fopen("score.txt", "a+");
     score=c-1;
