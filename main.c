@@ -3,31 +3,8 @@
 #include <time.h>
 #include <windows.h>
 #include <string.h>
-FILE *fp;
-void pac(){Sleep(1000);
-    system("pause");
-            system("cls");}
-void err(){pac();
-printf("Il comando inserito non esiste!\n");
-pac();
-printf("Turno saltato!\n");
-pac();}
-void loader() {
-    int i;
-    char str[] = "                                        ";
-    for(i = 0 ; i <= 40 ; i++) {
-        printf("\r[%s]", str);
-        str[i] = '|';
-      Sleep(150);
-    }
+#include "arcade.h"
 
-}
-int hp, m, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10, taunt, score, chars, count, space;
-int enattacco;
-int attack[] = {2,3,4,5,6}, magic[]={4,5,6,7}, heal[]={8,9,10}, umagic[]={1,2,3}, eattack[]={3,4,5,6},
-smagic[]={2,3}, fdamage[]={8,9,10}, lastdamage[]={0,0,0,1,2,3,0,0,0};
-char name[1000], taunts[][50]={"Sono Invincibile!","Nervoso?","Sono Alessandro Il Grande!","Cabron!","Mi stai facendo arrabbiare!","La mia difesa e' inespugnabile!","Il mio stile e' impetuoso!"};
 int main()
 {
     printf("Inserisci il tuo nome(senza spazi): ");
@@ -41,34 +18,14 @@ int main()
     system("cls");
     printf("Benvenuto, %s\n", name);
     pac();
-    printf("Fai la tua scelta:\n\n 1: Tutorial\n 2: Gioca\n 3: Esci\n");
+    MENU:printf("Fai la tua scelta:\n\n 1: Tutorial\n 2: Gioca\n 3: Punteggi\n 4: Esci\n");
     scanf("%d", &scelta);
     switch(scelta){
 case 1:
     {
-        system("cls");
-        printf("l'obbiettivo del gioco e' far arrivare la vita dell'avversario a 0\n");
-        pac();
-        printf("Puoi fare attaccandolo(1)\n");
-        pac();
-        printf("Se la tua vita scende a zero, hai perso\n");
-        pac();
-        printf("Gli MP servono per usare gli incantesimi, se scendono sotto lo zero, hai perso\n");
-        pac();
-        printf("Premendo 2 apri il menu degli incantesimi\nVengono dati gli incantesimi, una descrizone, ed il costo\n");
-        pac();
-        printf("Piu vinci, Piu il nemico diventa forte!\n");
-        pac();
-        printf("Ma anche tu diventi piu' forte!\n");
-        pac();
-        printf("Buona Fortuna!\n");
-        pac();
-        printf("\n\n\n\n\n\nNe avrai bisogno...\n");
-        Sleep(50);
-        system("cls");
-        loader();
-        system("cls");
+        tutorial();
     }
+    goto MENU;
 case 2:
     {
 restart=1;
@@ -84,11 +41,13 @@ rage=0;
 hp=dvita;
 ehp=10+modifier;
 r=clock();
-m=dmp+powermp;
+mp=dmp+powermp;
+        loader();
+        system("cls");
     while(ehp>0)///finchè la vita del nemico è superiore a 0 il gioco non si ferma
     {
     system("cls");
-    printf("Stai combattendo contro Nemico #%d\nSeleziona la tua prossima mossa!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n1: Attacca 2: Incantesimi\n\n",c, hp, m, ehp); /// schermata iniziale
+    printf("Stai combattendo contro Nemico #%d\nSeleziona la tua prossima mossa!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n1: Attacca 2: Incantesimi\n\n",c, hp, mp, ehp); /// schermata iniziale
     scanf("%d", &scelta);
     switch(scelta)
     {
@@ -103,7 +62,7 @@ m=dmp+powermp;
         rage--;
         adamage=adamage*2;
         ehp=ehp-adamage;
-        printf("Stai combattendo contro Nemico #%d\nAttacchi l'avversario togliendogli %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,adamage, hp, m, ehp);
+        printf("Stai combattendo contro Nemico #%d\nAttacchi l'avversario togliendogli %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,adamage, hp, mp, ehp);
         }
         else
         {
@@ -112,19 +71,19 @@ m=dmp+powermp;
             {
             adamage=adamage*2;
             ehp=ehp-adamage;
-            printf("Stai combattendo contro Nemico #%d\nAttacchi l'avversario togliendogli %d di vita!\n\nCOLPO CRITICO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,adamage, hp, m, ehp);
+            printf("Stai combattendo contro Nemico #%d\nAttacchi l'avversario togliendogli %d di vita!\n\nCOLPO CRITICO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,adamage, hp, mp, ehp);
 
             }
         else
         {
             if(x>=90) /// prova a rollare per un attacco missato
             {
-            printf("Stai combattendo contro Nemico #%d\nIl tuo attacco manca l'avversario!\n\nCOLPO MANCATO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+            printf("Stai combattendo contro Nemico #%d\nIl tuo attacco manca l'avversario!\n\nCOLPO MANCATO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
             }
             else
             {
             ehp=ehp-adamage;
-             printf("Stai combattendo contro Nemico #%d\nAttacchi l'avversario togliendogli %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,adamage, hp, m, ehp);
+             printf("Stai combattendo contro Nemico #%d\nAttacchi l'avversario togliendogli %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,adamage, hp, mp, ehp);
             }
         }
         }
@@ -135,7 +94,7 @@ m=dmp+powermp;
         case 2: ///se scegli incantesimi
         {
         system("cls");
-        printf("Vita: %d | MP: %d | Vita dell'avversario: %d\n\nScegli che incantesimo usare:\n1)Heal: Ti curi aggiungendo qualcosa alla tua vita(costo: 2 MP)\n2)Concentration: Aggiunge qualche punto ai tuoi MP(Costo: 0 MP)\n3)Protection: per 3 turni il danno subito sara' minore(costo: 5 MP)\n4)Rage: Farai piu' danni per 3 turni(Costo: 10 MP)\n5)Stun: Stordisci l'avversario impedendogli di attaccare per 2 turni(Costo: 7 MP)\n", hp, m, ehp);
+        printf("Vita: %d | MP: %d | Vita dell'avversario: %d\n\nScegli che incantesimo usare:\n1)Heal: Ti curi aggiungendo qualcosa alla tua vita(costo: 2 MP)\n2)Concentration: Aggiunge qualche punto ai tuoi MP(Costo: 0 MP)\n3)Protection: per 3 turni il danno subito sara' minore(costo: 5 MP)\n4)Rage: Farai piu' danni per 3 turni(Costo: 10 MP)\n5)Stun: Stordisci l'avversario impedendogli di attaccare per 2 turni(Costo: 7 MP)\n", hp, mp, ehp);
         scanf("%d",&scelta); /// va nel menù incantesimi
         switch(scelta){
     case 1:
@@ -143,10 +102,17 @@ m=dmp+powermp;
             system("cls");
             srand(time(0));
             cura=( rand() % 2 );
+            mp=mp-2;
+            if(mp<0)
+            {
+                nomp();
+            }
+            else
+            {
             hp=hp+heal[cura];
-            m=m-2;
-            printf("Stai combattendo contro Nemico #%d\nUsando 2 di magia, aggiungi %d alla tua vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,heal[cura], hp, m, ehp);
+            printf("Stai combattendo contro Nemico #%d\nUsando 2 di magia, aggiungi %d alla tua vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,heal[cura], hp, mp, ehp);
             pac();
+            }
         }
         break;
     case 2:
@@ -154,36 +120,55 @@ m=dmp+powermp;
         system("cls");
         srand(time(0));
         magia=( rand() % 3 );
-        m=m+magic[magia];
-        printf("Stai combattendo contro Nemico #%d\nAggiungi %d alla tua magia!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,magic[magia], hp, m, ehp);
+        mp=mp+magic[magia];
+        printf("Stai combattendo contro Nemico #%d\nAggiungi %d alla tua magia!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,magic[magia], hp, mp, ehp);
         pac();
     }
     break;
     case 3:
         {
             system("cls");
+            mp=mp-5;
+              if(mp<0)
+            {
+                nomp();
+            }
+            else{
             protection=protection+3;
-            m=m-5;
-            printf("Stai combattendo contro Nemico #%d\nUsi 5 MP Per ridurre il danno che subisci per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+            printf("Stai combattendo contro Nemico #%d\nUsi 5 MP Per ridurre il danno che subisci per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
             pac();
+            }
         }
         break;
     case 4:
         {
             system("cls");
+            mp=mp-10;
+               if(mp<0)
+            {
+                nomp();
+            }
+            else{
             rage=rage+3;
-            m=m-10;
-            printf("Stai combattendo contro Nemico #%d\nUsi 10 MP Per aumentare il danno che fai per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+            printf("Stai combattendo contro Nemico #%d\nUsi 10 MP Per aumentare il danno che fai per 3 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
             pac();
+            }
         }
         break;
     case 5:
         {
             system("cls");
+            mp=mp-7;
+               if(mp<0)
+            {
+                nomp();
+            }
+            else
+            {
             stun=stun+2;
-            m=m-7;
-            printf("Stai combattendo contro Nemico #%d\nUsi 7 MP Per bloccare il nemico per 2 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+            printf("Stai combattendo contro Nemico #%d\nUsi 7 MP Per bloccare il nemico per 2 turni!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
             pac();
+            }
         }
         break;
     default:
@@ -207,7 +192,7 @@ if(ehp>0)
 if(stun>0)
 {
    stun=stun-1;
-   printf("Stai combattendo contro Nemico #%d\nL'avversario non riesce a muoversi\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+   printf("Stai combattendo contro Nemico #%d\nL'avversario non riesce a muoversi\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
    meter=0;
 }
 else{
@@ -216,7 +201,7 @@ if(meter==-666)
     enattacco=15;
     hp=hp-enattacco;
     meter=0;
-    printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce con un colpo caricato, togliendoti %d di vita!\n\nCOLPO CRITICO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce con un colpo caricato, togliendoti %d di vita!\n\nCOLPO CRITICO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, mp, ehp);
 }
 else
 {
@@ -224,9 +209,9 @@ if(meter>=30)
 {
     meter=-666;
     taunt=(rand() % 6);
-    printf("Stai combattendo contro Nemico #%d\nIl Nemico dice: %s\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,taunts[taunt], hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nIl Nemico dice: %s\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,taunts[taunt], hp, mp, ehp);
     pac();
-    printf("Stai combattendo contro Nemico #%d\nIl Nemico sembra star caricando un colpo potente...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nIl Nemico sembra star caricando un colpo potente...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
 }
 else
 {
@@ -239,7 +224,7 @@ fchance=(rand() % 9);
         fireball=(rand() % 2);
         enattacco=fdamage[fireball];
         hp=hp-enattacco;
-        printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce con una palla di fuoco, togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, m, ehp);
+        printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce con una palla di fuoco, togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, mp, ehp);
         meter=meter+enattacco;
         }
     else
@@ -258,13 +243,13 @@ fchance=(rand() % 9);
     {
     hp=hp-enattacco;
     ehp=ehp+enattacco;
-    printf("Stai combattendo contro Nemico #%d\nL'avversario ti ruba %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nL'avversario ti ruba %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, mp, ehp);
     meter=meter+enattacco;
     }
     else
     {
     hp=hp-enattacco;
-    printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, mp, ehp);
     meter=meter+enattacco;
     }
     }
@@ -274,11 +259,11 @@ fchance=(rand() % 9);
     pac();
 }
 
-    if((m < 0) || (hp <= 0)) /// controlla se ci sono endgame variabili
+    if(hp <= 0) /// controlla se ci sono endgame variabili
     {
-    printf("Stai combattendo contro Nemico #%d\nCrolli a terra, senza energie...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nCrolli a terra, senza energie...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
     pac();
-    printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, m, ehp);
+    printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, mp, ehp);
     pac();
     printf("Vuoi salvare il tuo punteggio?\n1=Si\n");
     scanf("%d", &scelta);
@@ -306,13 +291,13 @@ if(lastchance>=50)
 {
     lastchance=(rand() % 8);
     hp=hp-lastdamage[lastchance];
-    printf("Stai combattendo contro Nemico #%d\nCon le sue ultime energie il nemico ti attacca togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,lastdamage[lastchance], hp, m, ehp);
+    printf("Stai combattendo contro Nemico #%d\nCon le sue ultime energie il nemico ti attacca togliendoti %d di vita!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,lastdamage[lastchance], hp, mp, ehp);
     pac();
-    if((m < 0) || (hp <= 0)) /// controlla se ci sono endgame variabili
+    if(hp <= 0) /// controlla se ci sono endgame variabili
     {
-     printf("Stai combattendo contro Nemico #%d\nCrolli a terra, senza energie...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
+     printf("Stai combattendo contro Nemico #%d\nCrolli a terra, senza energie...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
     pac();
-    printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, m, ehp);
+    printf("Sei Morto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nGame Over!\n\n", hp, mp, ehp);
     pac();
     printf("Vuoi salvare il tuo punteggio?\n1=Si\n");
     scanf("%d", &scelta);
@@ -333,8 +318,8 @@ if(lastchance>=50)
      return 0;
     }
 }
-printf("Stai combattendo contro Nemico #%d\nIl nemico crolla a terra, sconfitto...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, m, ehp);
-printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, m, ehp);
+printf("Stai combattendo contro Nemico #%d\nIl nemico crolla a terra, sconfitto...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
+printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, mp, ehp);
 pac();
 printf("\nVuoi ricominciare?\n\n1=Si   0=No\n");
 scanf("%d",&restart);
@@ -386,12 +371,30 @@ default:
 }
 }
     }
+case 3:
+    {
+system ("cls");
+fp = fopen("score.txt", "r");
+if (fp) {
+    while ((cc = getc(fp)) != EOF)
+        putchar(cc);
+    fclose(fp);
+    pac();
+ goto MENU;
+    }
+    }
+ break;
+case 4:
+    {
+return 0;
+    }
+    break;
 default:
     {
         return 0;
     }
+    break;
     }
 return 0;
-
 }
 

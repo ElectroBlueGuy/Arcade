@@ -1,8 +1,11 @@
 # depslib dependency file v1.0
-1525609882 source:e:\programs c\arcadev2\main.c
+1525713736 source:e:\programs c\arcadev2\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<windows.h>
 	<string.h>
+	"arcade.h"
+
+1525713655 e:\programs c\arcadev2\arcade.h
 
