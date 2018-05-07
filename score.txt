@@ -1,6 +1,4 @@
 Nome        |     Punteggio
 -------------------------
 
-Electro     |     0
-ShyGay      |     0
-TestTest    |     0
+Electro     |     5
