@@ -269,7 +269,7 @@ fchance=(rand() % 9);
     scanf("%d", &scelta);
 if(scelta==1)
     {
-    fp = fopen("score.txt", "a+");
+    fp = fopen("score.no", "a+");
     score=c-1;
     fprintf(fp, "%s", name);
     for(;space!=0;space--)
@@ -303,7 +303,7 @@ if(lastchance>=50)
     scanf("%d", &scelta);
     if(scelta==1)
     {
-    fp = fopen("score.txt", "a+");
+    fp = fopen("score.no", "a+");
     score=c-1;
     fprintf(fp, "%s", name);
     for(;space!=0;space--)
@@ -374,7 +374,7 @@ default:
 case 3:
     {
 system ("cls");
-fp = fopen("score.txt", "r");
+fp = fopen("score.no", "r");
 if (fp) {
     while ((cc = getc(fp)) != EOF)
         putchar(cc);
