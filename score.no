@@ -2,3 +2,4 @@ Nome        |     Punteggio
 -------------------------
 
 Electro     |     5
+ElectroB    |     2

@@ -43,7 +43,7 @@ void tutorial(){
 
 }
 int hp, mp, ehp, r, scelta, attacco, eattacco, magia, cura, usmagic, stmagic, x, protection, fchance, rage, adamage, restart,
-lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10, taunt, score, chars, count, space, cc;
+lifesteal, fireball, meter,c=0, stun, modifier, lastchance, powervita=0, powermp=0, dvita=30, dmp=10, taunt, score, chars, count, space, cc, colpocaricato= 10;
 int enattacco;
 int attack[] = {2,3,4,5,6}, magic[]={4,5,6,7}, heal[]={8,9,10}, umagic[]={1,2,3}, eattack[]={3,4,5,6},
 smagic[]={2,3}, fdamage[]={8,9,10}, lastdamage[]={0,0,0,1,2,3,0,0,0};

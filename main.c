@@ -29,9 +29,13 @@ case 1:
 case 2:
     {
 restart=1;
-
+loader();
 while(restart==1){
 c++;
+protection=0;
+rage=0;
+stun=0;
+colpocaricato+=5;
 dvita=dvita+powervita;
 dmp=dmp+powermp;
 meter=0;
@@ -42,7 +46,7 @@ hp=dvita;
 ehp=10+modifier;
 r=clock();
 mp=dmp+powermp;
-        loader();
+
         system("cls");
     while(ehp>0)///finchè la vita del nemico è superiore a 0 il gioco non si ferma
     {
@@ -198,7 +202,7 @@ if(stun>0)
 else{
 if(meter==-666)
 {
-    enattacco=15;
+    enattacco=colpocaricato;
     hp=hp-enattacco;
     meter=0;
     printf("Stai combattendo contro Nemico #%d\nL'avversario ti colpisce con un colpo caricato, togliendoti %d di vita!\n\nCOLPO CRITICO!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c,enattacco, hp, mp, ehp);
@@ -319,10 +323,10 @@ if(lastchance>=50)
     }
 }
 printf("Stai combattendo contro Nemico #%d\nIl nemico crolla a terra, sconfitto...\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\n",c, hp, mp, ehp);
+pac();
 printf("Hai Vinto!\n\nVita: %d | MP: %d | Vita dell'avversario: %d\n\nComplimenti!\n\n", hp, mp, ehp);
 pac();
-printf("\nVuoi ricominciare?\n\n1=Si   0=No\n");
-scanf("%d",&restart);
+
 switch(restart){
 case 1:
 {
@@ -371,6 +375,7 @@ default:
 }
 }
     }
+    break;
 case 3:
     {
 system ("cls");
